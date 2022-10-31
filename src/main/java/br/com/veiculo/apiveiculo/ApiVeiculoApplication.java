@@ -1,5 +1,6 @@
 package br.com.veiculo.apiveiculo;
 
+import br.com.veiculo.apiveiculo.model.Veiculo;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
