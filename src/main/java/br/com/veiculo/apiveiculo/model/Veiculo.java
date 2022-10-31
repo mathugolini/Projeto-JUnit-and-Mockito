@@ -4,13 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity(name="veiculo")
 public class Veiculo {
 
     @Id
@@ -18,6 +17,8 @@ public class Veiculo {
     private Integer id;
     private String marca;
     private String modelo;
+
+    @Column(unique = true)
     private String placaVeiculo;
     private String kmPercorrido;
 }
