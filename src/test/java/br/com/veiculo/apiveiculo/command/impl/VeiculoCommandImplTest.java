@@ -19,7 +19,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
 
 @SpringBootTest
 class VeiculoCommandImplTest {
@@ -158,7 +159,24 @@ class VeiculoCommandImplTest {
 
 
     @Test
-    void delete() {
+    void deleteWithSuccess() {
+        when(repository.findById(anyInt())).thenReturn(optionalVeiculo);
+        doNothing().when(repository).deleteById(anyInt());
+        command.delete(ID);
+        verify(repository, times(1)).deleteById(anyInt());
+    }
+
+    @Test
+    void deleteWithObjectNotFoundException() {
+        when(repository.findById(anyInt()))
+                .thenThrow(new ObjectNotFoundException(VEICULO_NAO_ENCONTRADO));
+
+        try {
+            command.delete(ID);
+        } catch (Exception ex) {
+            assertEquals(ObjectNotFoundException.class, ex.getClass());
+            assertNotNull(VEICULO_NAO_ENCONTRADO, ex.getMessage());
+        }
     }
 
     private void startVeiculo() {
