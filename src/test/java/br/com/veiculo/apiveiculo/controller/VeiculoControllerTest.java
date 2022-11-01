@@ -11,6 +11,17 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.when;
 
 
 @SpringBootTest
@@ -21,8 +32,8 @@ class VeiculoControllerTest {
     public static final String MODELO = "320i";
     public static final String PLACA_VEICULO = "BRB2E19";
     public static final String KM_PERCORRIDO = "30000";
-    public static final String VEICULO_NAO_ENCONTRADO = "Veículo não encontrado";
-    public static final int INDEX = 0;
+
+    public static final Integer INDEX = 0;
 
     private Veiculo veiculo;
     private VeiculoDTO veiculoDTO;
@@ -44,7 +55,43 @@ class VeiculoControllerTest {
     }
 
     @Test
-    void findById() {
+    void whenFindByIdThenReturnSuccess() {
+        when(command.findById(anyInt())).thenReturn(veiculo);
+        when(mapper.map(any(), any())).thenReturn(veiculoDTO);
+
+       ResponseEntity<VeiculoDTO> response = controller.findById(ID);
+
+        assertNotNull(response);
+        assertNotNull(response.getBody());
+        assertEquals(ResponseEntity.class, response.getClass());
+        assertEquals(VeiculoDTO.class, response.getBody().getClass());
+
+        assertEquals(ID, response.getBody().getId());
+        assertEquals(MARCA, response.getBody().getMarca());
+        assertEquals(MODELO, response.getBody().getModelo());
+        assertEquals(PLACA_VEICULO, response.getBody().getPlacaVeiculo());
+        assertEquals(KM_PERCORRIDO, response.getBody().getKmPercorrido());
+    }
+
+    @Test
+    void whenFindAllThenReturnAListOfUserDTO() {
+        when(command.findAll()).thenReturn(List.of(veiculo));
+        when(mapper.map(any(), any())).thenReturn(veiculoDTO);
+
+        ResponseEntity<List<VeiculoDTO>> response = controller.findAll();
+
+        assertNotNull(response);
+        assertNotNull(response.getBody());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(ResponseEntity.class, response.getClass());
+        assertEquals(ArrayList.class, response.getBody().getClass());
+        assertEquals(VeiculoDTO.class, response.getBody().get(INDEX).getClass());
+
+        assertEquals(ID, response.getBody().get(INDEX).getId());
+        assertEquals(MARCA, response.getBody().get(INDEX).getMarca());
+        assertEquals(MODELO, response.getBody().get(INDEX).getModelo());
+        assertEquals(PLACA_VEICULO, response.getBody().get(INDEX).getPlacaVeiculo());
+        assertEquals(KM_PERCORRIDO, response.getBody().get(INDEX).getKmPercorrido());
     }
 
     @Test
