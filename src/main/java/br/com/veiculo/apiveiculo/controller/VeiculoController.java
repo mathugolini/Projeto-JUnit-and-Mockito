@@ -16,13 +16,15 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "/veiculo")
 public class VeiculoController {
 
+
+    private static final String ID = "/{id}";
     @Autowired
     private ModelMapper mapper;
 
     @Autowired
     private VeiculoCommand command;
 
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = ID)
     public ResponseEntity<VeiculoDTO> findById(@PathVariable Integer id) {
         return ResponseEntity.ok().body(mapper.map(command.findById(id), VeiculoDTO.class));
     }
