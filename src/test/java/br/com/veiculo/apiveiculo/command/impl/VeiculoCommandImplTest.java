@@ -1,5 +1,7 @@
 package br.com.veiculo.apiveiculo.command.impl;
 
+
+import br.com.veiculo.apiveiculo.command.exceptions.DataIntegratyViolationException;
 import br.com.veiculo.apiveiculo.command.exceptions.ObjectNotFoundException;
 import br.com.veiculo.apiveiculo.model.Veiculo;
 import br.com.veiculo.apiveiculo.model.dto.VeiculoDTO;
@@ -16,8 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -30,6 +31,7 @@ class VeiculoCommandImplTest {
     public static final String KM_PERCORRIDO = "30000";
     public static final String VEICULO_NAO_ENCONTRADO = "Veículo não encontrado";
     public static final int INDEX = 0;
+    public static final String PLACA_DE_VEICULO_JA_CADASTRADO_NO_SISTEMA = "Placa de veículo ja cadastrado no sistema";
     @InjectMocks
     private VeiculoCommandImpl command;
     @Mock
@@ -111,6 +113,20 @@ class VeiculoCommandImplTest {
         assertEquals(PLACA_VEICULO, response.getPlacaVeiculo());
         assertEquals(KM_PERCORRIDO, response.getKmPercorrido());
     }
+
+    @Test
+    void whenCreateThenReturnAnDataIntegrityViolationException() {
+        when(repository.findByPlacaVeiculo(anyString())).thenReturn(optionalVeiculo);
+
+        try {
+            optionalVeiculo.get().setId(2);
+            command.create(veiculoDTO);
+        } catch (Exception ex) {
+            assertEquals(DataIntegratyViolationException.class, ex.getClass());
+            assertEquals("Placa de veículo já cadastrado no sistema", ex.getMessage());
+        }
+    }
+
 
     @Test
     void update() {
