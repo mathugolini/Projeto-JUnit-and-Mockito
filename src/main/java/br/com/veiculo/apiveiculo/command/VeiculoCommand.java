@@ -13,4 +13,6 @@ public interface VeiculoCommand {
 
     Veiculo create(VeiculoDTO obj);
 
+    Veiculo update(VeiculoDTO obj);
+
 }

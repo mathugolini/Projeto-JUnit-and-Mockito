@@ -32,13 +32,16 @@ public class VeiculoController {
         return ResponseEntity.ok().body(command.findAll()
                 .stream().map(x -> mapper.map(x, VeiculoDTO.class)).collect(Collectors.toList()));
     }
+
     @PostMapping
     public ResponseEntity<VeiculoDTO> create(@RequestBody VeiculoDTO obj) {
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest().path("/{id}").buildAndExpand(command.create(obj).getId()).toUri();
         return ResponseEntity.created(uri).build();
-
     }
-
-
+    @PutMapping(value ="/{id}")
+    public ResponseEntity<VeiculoDTO> update(@PathVariable Integer id, @RequestBody VeiculoDTO obj) {
+        obj.setId(id);
+        return ResponseEntity.ok().body(mapper.map(command.update(obj), VeiculoDTO.class));
+    }
 }

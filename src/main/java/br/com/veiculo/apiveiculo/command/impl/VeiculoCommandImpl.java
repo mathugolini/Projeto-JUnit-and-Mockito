@@ -39,9 +39,16 @@ public class VeiculoCommandImpl implements VeiculoCommand{
         return repository.save(mapper.map(obj, Veiculo.class));
     }
 
+    @Override
+    public Veiculo update(VeiculoDTO obj) {
+        findByPlacaVeiculo(obj);
+        return repository.save(mapper.map(obj, Veiculo.class));
+
+    }
+
     private void findByPlacaVeiculo(VeiculoDTO obj) {
         Optional<Veiculo> veiculo = repository.findByPlacaVeiculo(obj.getPlacaVeiculo());
-        if(veiculo.isPresent()) {
+        if(veiculo.isPresent() && !veiculo.get().getId().equals(obj.getId())) {
             throw new DataIntegratyViolationException("Placa de veículo já cadastrado no sistema");
         }
     }
