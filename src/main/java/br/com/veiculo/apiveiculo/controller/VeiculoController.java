@@ -44,4 +44,10 @@ public class VeiculoController {
         obj.setId(id);
         return ResponseEntity.ok().body(mapper.map(command.update(obj), VeiculoDTO.class));
     }
+
+    @DeleteMapping(value ="/{id}")
+    public ResponseEntity<VeiculoDTO> delete(@PathVariable Integer id) {
+        command.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

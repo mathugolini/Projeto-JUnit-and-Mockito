@@ -46,6 +46,13 @@ public class VeiculoCommandImpl implements VeiculoCommand{
 
     }
 
+    @Override
+    public void delete(Integer id) {
+        findById(id);
+        repository.deleteById(id);
+    }
+
+
     private void findByPlacaVeiculo(VeiculoDTO obj) {
         Optional<Veiculo> veiculo = repository.findByPlacaVeiculo(obj.getPlacaVeiculo());
         if(veiculo.isPresent() && !veiculo.get().getId().equals(obj.getId())) {

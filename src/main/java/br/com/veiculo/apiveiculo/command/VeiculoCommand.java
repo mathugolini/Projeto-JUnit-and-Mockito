@@ -15,4 +15,6 @@ public interface VeiculoCommand {
 
     Veiculo update(VeiculoDTO obj);
 
+    void delete(Integer id);
+
 }
