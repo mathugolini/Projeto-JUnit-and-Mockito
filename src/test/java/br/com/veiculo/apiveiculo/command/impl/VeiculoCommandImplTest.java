@@ -12,6 +12,7 @@ import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,6 +28,7 @@ class VeiculoCommandImplTest {
     public static final String PLACA_VEICULO = "BRB2E19";
     public static final String KM_PERCORRIDO = "30000";
     public static final String VEICULO_NAO_ENCONTRADO = "Veículo não encontrado";
+    public static final int INDEX = 0;
     @InjectMocks
     private VeiculoCommandImpl command;
     @Mock
@@ -67,7 +69,7 @@ class VeiculoCommandImplTest {
     void whenFindByIdThenReturnAVeiculoNotFound() {
         when(repository.findById(anyInt())).thenThrow(new ObjectNotFoundException(VEICULO_NAO_ENCONTRADO));
 
-        try{
+        try {
             command.findById(ID);
         } catch (Exception ex) {
             assertEquals(ObjectNotFoundException.class, ex.getClass());
@@ -77,7 +79,21 @@ class VeiculoCommandImplTest {
 
 
     @Test
-    void findAll() {
+    void whenFindAllThenReturnAnListOfVeiculos() {
+        when(repository.findAll()).thenReturn(List.of(veiculo));
+
+        List<Veiculo> response = command.findAll();
+
+        assertNotNull(response);
+        assertEquals(1, response.size());
+        assertEquals(Veiculo.class, response.get(INDEX).getClass());
+        assertEquals(veiculo, response.get(INDEX));
+
+        assertEquals(ID, response.get(INDEX).getId());
+        assertEquals(MARCA, response.get(INDEX).getMarca());
+        assertEquals(MODELO, response.get(INDEX).getModelo());
+        assertEquals(PLACA_VEICULO, response.get(INDEX).getPlacaVeiculo());
+        assertEquals(KM_PERCORRIDO, response.get(INDEX).getKmPercorrido());
     }
 
     @Test
