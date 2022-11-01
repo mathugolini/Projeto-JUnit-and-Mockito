@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
@@ -97,7 +98,18 @@ class VeiculoCommandImplTest {
     }
 
     @Test
-    void create() {
+    void whenCreateThenReturnSuccess() {
+        when(repository.save(any())).thenReturn(veiculo);
+
+        Veiculo response = command.create(veiculoDTO);
+
+        assertNotNull(response);
+        assertEquals(Veiculo.class, response.getClass());
+        assertEquals(ID, response.getId());
+        assertEquals(MARCA, response.getMarca());
+        assertEquals(MODELO, response.getModelo());
+        assertEquals(PLACA_VEICULO, response.getPlacaVeiculo());
+        assertEquals(KM_PERCORRIDO, response.getKmPercorrido());
     }
 
     @Test
