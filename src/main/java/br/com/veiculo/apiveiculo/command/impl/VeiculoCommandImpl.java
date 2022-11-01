@@ -1,6 +1,7 @@
 package br.com.veiculo.apiveiculo.command.impl;
 
 import br.com.veiculo.apiveiculo.command.VeiculoCommand;
+import br.com.veiculo.apiveiculo.command.exceptions.DataIntegratyViolationException;
 import br.com.veiculo.apiveiculo.command.exceptions.ObjectNotFoundException;
 import br.com.veiculo.apiveiculo.model.Veiculo;
 import br.com.veiculo.apiveiculo.model.dto.VeiculoDTO;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class VeiculoControllerImpl implements VeiculoCommand{
+public class VeiculoCommandImpl implements VeiculoCommand{
 
     @Autowired
     private VeiculoRepository repository;
@@ -34,6 +35,14 @@ public class VeiculoControllerImpl implements VeiculoCommand{
 
     @Override
     public Veiculo create(VeiculoDTO obj) {
+        findByPlacaVeiculo(obj);
         return repository.save(mapper.map(obj, Veiculo.class));
+    }
+
+    private void findByPlacaVeiculo(VeiculoDTO obj) {
+        Optional<Veiculo> veiculo = repository.findByPlacaVeiculo(obj.getPlacaVeiculo());
+        if(veiculo.isPresent()) {
+            throw new DataIntegratyViolationException("Placa de veículo já cadastrado no sistema");
+        }
     }
 }
