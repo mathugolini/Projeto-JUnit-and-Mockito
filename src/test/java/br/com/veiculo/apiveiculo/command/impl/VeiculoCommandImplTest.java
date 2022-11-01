@@ -143,6 +143,19 @@ class VeiculoCommandImplTest {
         assertEquals(KM_PERCORRIDO, response.getKmPercorrido());
     }
 
+    @Test
+    void whenUpdateThenReturnAnDataIntegrityViolationException() {
+        when(repository.findByPlacaVeiculo(anyString())).thenReturn(optionalVeiculo);
+
+        try {
+            optionalVeiculo.get().setId(2);
+            command.create(veiculoDTO);
+        } catch (Exception ex) {
+            assertEquals(DataIntegratyViolationException.class, ex.getClass());
+            assertEquals("Placa de veículo já cadastrado no sistema", ex.getMessage());
+        }
+    }
+
 
     @Test
     void delete() {
