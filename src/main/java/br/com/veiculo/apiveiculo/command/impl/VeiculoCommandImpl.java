@@ -26,7 +26,7 @@ public class VeiculoCommandImpl implements VeiculoCommand{
     @Override
     public Veiculo findById(Integer id) {
         Optional<Veiculo> obj = repository.findById(id);
-        return obj.orElseThrow(() -> new ObjectNotFoundException("Veiculo não encontrado"));
+        return obj.orElseThrow(() -> new ObjectNotFoundException("Veículo não encontrado"));
     }
 
     public List<Veiculo> findAll() {

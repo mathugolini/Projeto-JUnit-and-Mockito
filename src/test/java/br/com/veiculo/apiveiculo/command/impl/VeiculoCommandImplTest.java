@@ -1,5 +1,6 @@
 package br.com.veiculo.apiveiculo.command.impl;
 
+import br.com.veiculo.apiveiculo.command.exceptions.ObjectNotFoundException;
 import br.com.veiculo.apiveiculo.model.Veiculo;
 import br.com.veiculo.apiveiculo.model.dto.VeiculoDTO;
 import br.com.veiculo.apiveiculo.repositories.VeiculoRepository;
@@ -25,6 +26,7 @@ class VeiculoCommandImplTest {
     public static final String MODELO = "320i";
     public static final String PLACA_VEICULO = "BRB2E19";
     public static final String KM_PERCORRIDO = "30000";
+    public static final String VEICULO_NAO_ENCONTRADO = "Veículo não encontrado";
     @InjectMocks
     private VeiculoCommandImpl command;
     @Mock
@@ -59,6 +61,18 @@ class VeiculoCommandImplTest {
         assertEquals(MODELO, response.getModelo());
         assertEquals(PLACA_VEICULO, response.getPlacaVeiculo());
         assertEquals(KM_PERCORRIDO, response.getKmPercorrido());
+    }
+
+    @Test
+    void whenFindByIdThenReturnAVeiculoNotFound() {
+        when(repository.findById(anyInt())).thenThrow(new ObjectNotFoundException(VEICULO_NAO_ENCONTRADO));
+
+        try{
+            command.findById(ID);
+        } catch (Exception ex) {
+            assertEquals(ObjectNotFoundException.class, ex.getClass());
+            assertEquals(VEICULO_NAO_ENCONTRADO, ex.getMessage());
+        }
     }
 
 
