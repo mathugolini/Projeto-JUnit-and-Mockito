@@ -95,13 +95,16 @@ class VeiculoControllerTest {
     }
 
     @Test
-    void findAll() {
-    }
+    void whenCreateThenReturnCreated() {
+        when(command.create(any())).thenReturn(veiculo);
 
-    @Test
-    void create() {
-    }
+        ResponseEntity<VeiculoDTO> response = controller.create(veiculoDTO);
 
+        assertEquals(ResponseEntity.class, response.getClass());
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertNotNull(response.getHeaders().get("Location"));
+
+    }
     @Test
     void update() {
     }
