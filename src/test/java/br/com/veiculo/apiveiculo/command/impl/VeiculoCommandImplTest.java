@@ -129,8 +129,20 @@ class VeiculoCommandImplTest {
 
 
     @Test
-    void update() {
+    void whenUpdateThenReturnSuccess() {
+        when(repository.save(any())).thenReturn(veiculo);
+
+        Veiculo response = command.update(veiculoDTO);
+
+        assertNotNull(response);
+        assertEquals(Veiculo.class, response.getClass());
+        assertEquals(ID, response.getId());
+        assertEquals(MARCA, response.getMarca());
+        assertEquals(MODELO, response.getModelo());
+        assertEquals(PLACA_VEICULO, response.getPlacaVeiculo());
+        assertEquals(KM_PERCORRIDO, response.getKmPercorrido());
     }
+
 
     @Test
     void delete() {
