@@ -106,7 +106,23 @@ class VeiculoControllerTest {
 
     }
     @Test
-    void update() {
+    void whenUpdateThenReturnSuccess() {
+        when(command.update(veiculoDTO)).thenReturn(veiculo);
+        when(mapper.map(any(), any())).thenReturn(veiculoDTO);
+
+        ResponseEntity<VeiculoDTO> response = controller.update(ID, veiculoDTO);
+
+        assertNotNull(response);
+        assertNotNull(response.getBody());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(ResponseEntity.class, response.getClass());
+        assertEquals(VeiculoDTO.class, response.getBody().getClass());
+
+        assertEquals(ID, response.getBody().getId());
+        assertEquals(MARCA, response.getBody().getMarca());
+        assertEquals(MODELO, response.getBody().getModelo());
+        assertEquals(PLACA_VEICULO, response.getBody().getPlacaVeiculo());
+        assertEquals(KM_PERCORRIDO, response.getBody().getKmPercorrido());
     }
 
     @Test
