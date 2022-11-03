@@ -1,24 +1,21 @@
-package br.com.veiculo.apiveiculo.model;
+package br.com.veiculo.apiveiculo.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.*;
 
-@Data
+@Setter @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name="veiculo")
-public class Veiculo {
+public class VeiculoDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Integer id;
     private String marca;
     private String modelo;
-
-    @Column(unique = true)
     private String placaVeiculo;
     private String kmPercorrido;
 }
