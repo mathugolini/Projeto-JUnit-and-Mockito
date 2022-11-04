@@ -5,30 +5,31 @@ Global Solution - Micro Services FIAP
 
 ### :wrench: Development
 
-:heavy_minus_sign: Classe de modelo (Veículo): id, marca, modelo, placa do veículo e quilometragem percorrida.
+:package: Classe de modelo (Veículo): id, marca, modelo, placa do veículo e quilometragem percorrida.
 
+:heavy_minus_sign: Implementar endpoint GET para consultar Veículo por ID e endpoint
+GET para consultar todos os Veículos.
 
-:heavy_minus_sign: Criar uma interface web simples para mostrar o relatórios de todos os emails enviados;
+:heavy_minus_sign: Implementar a documentação da API Rest em Swagger.
 
-:heavy_minus_sign: Consumir o endpoint da API de e-mails para retornar os e-mails;
+:heavy_minus_sign: Utilizar o Design Pattern DTO nos parâmetros e retornos de endpoints.
 
-:heavy_minus_sign: Inserir um campo para informar a data que deseja filtrar;
+:heavy_minus_sign: Utilizar o Design Pattern DTO nos parâmetros e retornos de endpoints.
+ 
+:heavy_minus_sign: Utilizar o Design Pattern Command para cada endpoint (não pode ser
+implementada uma única classe com métodos para todos os endpoints). As classes Command deverão ter anotações @Service e ser injetadas nas classes Controller (significa dizer que as classes Command não podem ser instanciadas com new). A passagem de parâmetros deve ser obrigatoriamente por método (não por construtor).
 
-###### B) 
-- Na mesma no mesma inteface web, criar mais uma página para mostrar os produtos cadastrados;
-- Consumir o endpoint da API de produtos para retornar os produtos cadastrados;
-- Criar um formulário para cadastrar o produto e enviar o produto para o endpoint de cadastro.
-Observação: Para consumir as duas API's, fique a vontade para definir a linguagem front-end que irá utilizar, ou até mesmo utilizar javascript puro.
+:heavy_minus_sign: Implementar a camada de persistencia em JPA com banco de dados relacional.
 
-Especificações da Aplicação   
-- 
-- Thymefeaf com bootstrap implementando interface web de front-end;
-- Persistência em banco de dados local H2;
-- Classe modelo Email com atributos endereco, assunto, dataEnvio; 
-  -  http://localhost:8080/emails
-- Classe modelo Produto com atributos nome, categoria, preco; ("/produtos")
-  - http://localhost:8080/produtos
-- Implementação das classes DTO e Service
+:test_tube: Criar teste unitário para o método POST criado.
+
+:test_tube: Criar teste unitário para o método PUT criado.
+
+:test_tube: Criar teste unitário para o método DELETE criado.
+
+:test_tube: Criar teste unitário para o método criado GET para consultar veículo por
+ID.
+
 
 
 ## Integrantes: 
