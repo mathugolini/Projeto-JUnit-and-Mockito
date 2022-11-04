@@ -9,7 +9,9 @@ Global Solution - Micro Services FIAP
 
 
 :heavy_minus_sign: Criar uma interface web simples para mostrar o relatórios de todos os emails enviados;
+
 :heavy_minus_sign: Consumir o endpoint da API de e-mails para retornar os e-mails;
+
 :heavy_minus_sign: Inserir um campo para informar a data que deseja filtrar;
 
 ###### B) 
