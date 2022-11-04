@@ -5,10 +5,12 @@ Global Solution - Micro Services FIAP
 
 ### :wrench: Development
 
-###### A) 
- - Criar uma interface web simples para mostrar o relatórios de todos os emails enviados;
-- Consumir o endpoint da API de e-mails para retornar os e-mails;
-- Inserir um campo para informar a data que deseja filtrar;
+:heavy_minus_sign: Classe de modelo (Veículo): id, marca, modelo, placa do veículo e quilometragem percorrida.
+
+
+:heavy_minus_sign: Criar uma interface web simples para mostrar o relatórios de todos os emails enviados;
+:heavy_minus_sign: Consumir o endpoint da API de e-mails para retornar os e-mails;
+:heavy_minus_sign: Inserir um campo para informar a data que deseja filtrar;
 
 ###### B) 
 - Na mesma no mesma inteface web, criar mais uma página para mostrar os produtos cadastrados;
