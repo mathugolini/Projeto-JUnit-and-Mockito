@@ -36,6 +36,5 @@ ID.
 | Nome | RM |
 | ------ | ------ |
 | Cahue Kokeny Borges Guimarães | 84845 |
-| Gabriel Rentschler de Araujo | 86028 |
 | Gustavo Niewerth | 84859 |
 | Matheus Hugolini Carneiro | 85914 |
