@@ -31,10 +31,3 @@ implementada uma única classe com métodos para todos os endpoints). As classes
 ID.
 
 
-
-## Integrantes: 
-| Nome | RM |
-| ------ | ------ |
-| Cahue Kokeny Borges Guimarães | 84845 |
-| Gustavo Niewerth | 84859 |
-| Matheus Hugolini Carneiro | 85914 |
